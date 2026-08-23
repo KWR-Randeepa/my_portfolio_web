@@ -31,20 +31,32 @@ export default function AdminDashboard() {
   const [editingProjectId, setEditingProjectId] = useState(null);
 
   const fetchArticles = async () => {
-    const res = await fetch('http://localhost:5000/api/articles/admin/all', {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    if (res.ok) {
-      const data = await res.json();
-      setArticles(data);
+    try {
+      const res = await fetch('http://localhost:5000/api/articles/admin/all', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setArticles(data);
+      } else {
+        console.error('Failed to fetch articles:', res.status, res.statusText);
+      }
+    } catch (err) {
+      console.error('Error fetching articles:', err);
     }
   };
 
   const fetchProjects = async () => {
-    const res = await fetch('http://localhost:5000/api/projects');
-    if (res.ok) {
-      const data = await res.json();
-      setProjects(data);
+    try {
+      const res = await fetch('http://localhost:5000/api/projects');
+      if (res.ok) {
+        const data = await res.json();
+        setProjects(data);
+      } else {
+        console.error('Failed to fetch projects:', res.status, res.statusText);
+      }
+    } catch (err) {
+      console.error('Error fetching projects:', err);
     }
   };
 
@@ -56,29 +68,51 @@ export default function AdminDashboard() {
   // Handle Article Save
   const handleSave = async (e) => {
     e.preventDefault();
-    const payload = {
+
+    // Auto-generate slug from title if empty
+    let computedSlug = form.slug ? form.slug.trim() : '';
+    if (!computedSlug && form.title) {
+      computedSlug = form.title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)+/g, '');
+    }
+
+    const rawPayload = {
       ...form,
+      slug: computedSlug,
       tags: typeof form.tags === 'string' ? form.tags.split(',').map(t => t.trim()).filter(Boolean) : form.tags
     };
 
-    const url = editingId 
+    // Remove immutable MongoDB fields
+    const { _id, createdAt, updatedAt, __v, ...payload } = rawPayload;
+
+    const url = editingId
       ? `http://localhost:5000/api/articles/${editingId}`
       : 'http://localhost:5000/api/articles';
     const method = editingId ? 'PUT' : 'POST';
 
-    const res = await fetch(url, {
-      method,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify(payload)
-    });
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(payload)
+      });
 
-    if (res.ok) {
-      setForm({ title: '', slug: '', summary: '', content: '', tags: '', readTime: '5 min', published: false });
-      setEditingId(null);
-      fetchArticles();
+      const data = await res.json();
+
+      if (res.ok) {
+        setForm({ title: '', slug: '', summary: '', content: '', tags: '', readTime: '5 min', published: false });
+        setEditingId(null);
+        fetchArticles();
+      } else {
+        alert(`Failed to save article: ${data.error || 'Unknown error'}`);
+      }
+    } catch (err) {
+      alert(`Network error: ${err.message}`);
     }
   };
 
@@ -92,41 +126,60 @@ export default function AdminDashboard() {
 
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this article?')) return;
-    await fetch(`http://localhost:5000/api/articles/${id}`, {
-      method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` }
-    });
+    try {
+      const res = await fetch(`http://localhost:5000/api/articles/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        alert(`Delete failed: ${data.error || 'Unknown error'}`);
+      }
+    } catch (err) {
+      alert(`Network error: ${err.message}`);
+    }
     fetchArticles();
   };
 
   // Handle Project Save
   const handleProjectSave = async (e) => {
     e.preventDefault();
-    const payload = {
+    const rawPayload = {
       ...projectForm,
-      tags: typeof projectForm.tags === 'string' 
+      tags: typeof projectForm.tags === 'string'
         ? projectForm.tags.split(',').map(t => t.trim()).filter(Boolean)
         : projectForm.tags
     };
 
-    const url = editingProjectId 
+    // Remove immutable MongoDB fields
+    const { _id, createdAt, updatedAt, __v, ...payload } = rawPayload;
+
+    const url = editingProjectId
       ? `http://localhost:5000/api/projects/${editingProjectId}`
       : 'http://localhost:5000/api/projects';
     const method = editingProjectId ? 'PUT' : 'POST';
 
-    const res = await fetch(url, {
-      method,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify(payload)
-    });
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(payload)
+      });
 
-    if (res.ok) {
-      setProjectForm({ title: '', description: '', tags: '', githubUrl: '', liveUrl: '' });
-      setEditingProjectId(null);
-      fetchProjects();
+      const data = await res.json();
+
+      if (res.ok) {
+        setProjectForm({ title: '', description: '', tags: '', githubUrl: '', liveUrl: '' });
+        setEditingProjectId(null);
+        fetchProjects();
+      } else {
+        alert(`Failed to save project: ${data.error || 'Unknown error'}`);
+      }
+    } catch (err) {
+      alert(`Network error: ${err.message}`);
     }
   };
 
@@ -140,10 +193,18 @@ export default function AdminDashboard() {
 
   const handleProjectDelete = async (id) => {
     if (!window.confirm('Delete this system deployment card?')) return;
-    await fetch(`http://localhost:5000/api/projects/${id}`, {
-      method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` }
-    });
+    try {
+      const res = await fetch(`http://localhost:5000/api/projects/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        alert(`Delete failed: ${data.error || 'Unknown error'}`);
+      }
+    } catch (err) {
+      alert(`Network error: ${err.message}`);
+    }
     fetchProjects();
   };
 
@@ -161,21 +222,19 @@ export default function AdminDashboard() {
         <div className="flex gap-4 mb-8">
           <button
             onClick={() => setActiveTab('articles')}
-            className={`px-6 py-3 rounded-xl font-mono text-sm font-bold border transition-all ${
-              activeTab === 'articles'
+            className={`px-6 py-3 rounded-xl font-mono text-sm font-bold border transition-all ${activeTab === 'articles'
                 ? 'bg-slate-800 border-slate-500 text-white shadow-lg'
                 : 'bg-black/40 border-slate-800 text-slate-400 hover:text-white'
-            }`}
+              }`}
           >
             // ARTICLES LOGS ({articles.length})
           </button>
           <button
             onClick={() => setActiveTab('projects')}
-            className={`px-6 py-3 rounded-xl font-mono text-sm font-bold border transition-all ${
-              activeTab === 'projects'
+            className={`px-6 py-3 rounded-xl font-mono text-sm font-bold border transition-all ${activeTab === 'projects'
                 ? 'bg-slate-800 border-slate-500 text-white shadow-lg'
                 : 'bg-black/40 border-slate-800 text-slate-400 hover:text-white'
-            }`}
+              }`}
           >
             // SYSTEM DEPLOYMENTS ({projects.length})
           </button>
@@ -199,11 +258,10 @@ export default function AdminDashboard() {
                 />
                 <input
                   type="text"
-                  placeholder="Slug (e.g., modern-networking-protocols)"
+                  placeholder="Slug (optional, auto-generated if blank)"
                   value={form.slug}
                   onChange={(e) => setForm({ ...form, slug: e.target.value })}
                   className="bg-black/50 border border-slate-700 p-3 rounded text-white font-mono text-sm"
-                  required
                 />
               </div>
 
