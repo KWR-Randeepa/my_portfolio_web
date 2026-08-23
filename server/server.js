@@ -5,7 +5,12 @@ import dotenv from 'dotenv';
 import dns from 'node:dns';
 
 // Fix Windows Node.js querySrv ECONNREFUSED issues with MongoDB Atlas
-dns.setServers(['8.8.8.8', '1.1.1.1']);
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+} catch {
+  // Ignore DNS override errors in serverless environments
+}
+
 import contactRoutes from './routes/contactRoutes.js';
 import articleRoutes from './routes/articleRoutes.js';
 import authRoutes from './routes/authRoutes.js';
@@ -17,21 +22,48 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// MongoDB connection caching for serverless environments
+let isConnected = false;
+export async function connectDB() {
+  if (isConnected || mongoose.connection.readyState >= 1) {
+    isConnected = true;
+    return;
+  }
+  if (!process.env.MONGO_URI) {
+    console.error('MONGO_URI is missing in environment variables.');
+    return;
+  }
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    isConnected = true;
+    console.log('MongoDB connected successfully');
+  } catch (err) {
+    console.error('MongoDB connection failed:', err);
+  }
+}
+
+// Middleware to ensure DB is connected on every request
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
+});
+
 app.use('/api/contact', contactRoutes);
 app.use('/api/articles', articleRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 
-// Connect to MongoDB database and check connection status
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
-    // Verification comment: Log successful MongoDB connection
-    console.log(' MongoDB connected successfully');
-    
-    const PORT = process.env.PORT || 5000;
+// Healthcheck route
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', dbState: mongoose.connection.readyState });
+});
+
+// Run standalone server if executed directly (not in Vercel serverless)
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 5000;
+  connectDB().then(() => {
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-  })
-  .catch((err) => {
-    // Verification comment: Log MongoDB connection error
-    console.error(' MongoDB connection failed:', err);
   });
+}
+
+export default app;
