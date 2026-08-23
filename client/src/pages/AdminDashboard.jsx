@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api';
 
 export default function AdminDashboard() {
   const { token, logout } = useAuth();
@@ -32,7 +33,7 @@ export default function AdminDashboard() {
 
   const fetchArticles = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/articles/admin/all', {
+      const res = await fetch(`${API_BASE_URL}/api/articles/admin/all`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -48,7 +49,7 @@ export default function AdminDashboard() {
 
   const fetchProjects = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/projects');
+      const res = await fetch(`${API_BASE_URL}/api/projects`);
       if (res.ok) {
         const data = await res.json();
         setProjects(data);
@@ -88,8 +89,8 @@ export default function AdminDashboard() {
     const { _id, createdAt, updatedAt, __v, ...payload } = rawPayload;
 
     const url = editingId
-      ? `http://localhost:5000/api/articles/${editingId}`
-      : 'http://localhost:5000/api/articles';
+      ? `${API_BASE_URL}/api/articles/${editingId}`
+      : `${API_BASE_URL}/api/articles`;
     const method = editingId ? 'PUT' : 'POST';
 
     try {
@@ -127,7 +128,7 @@ export default function AdminDashboard() {
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this article?')) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/articles/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/articles/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -155,8 +156,8 @@ export default function AdminDashboard() {
     const { _id, createdAt, updatedAt, __v, ...payload } = rawPayload;
 
     const url = editingProjectId
-      ? `http://localhost:5000/api/projects/${editingProjectId}`
-      : 'http://localhost:5000/api/projects';
+      ? `${API_BASE_URL}/api/projects/${editingProjectId}`
+      : `${API_BASE_URL}/api/projects`;
     const method = editingProjectId ? 'PUT' : 'POST';
 
     try {
@@ -194,7 +195,7 @@ export default function AdminDashboard() {
   const handleProjectDelete = async (id) => {
     if (!window.confirm('Delete this system deployment card?')) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/projects/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/projects/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });

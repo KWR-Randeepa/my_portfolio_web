@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { User } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import API_BASE_URL from '../config/api';
+
 
 import BlackHoleScene from '../components/3d/BlackHoleScene';
 import Articles from '../components/sections/Articles';
@@ -17,7 +19,7 @@ export default function Home() {
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/projects')
+    fetch(`${API_BASE_URL}/api/projects`)
       .then((res) => res.json())
       .then((data) => setProjects(data))
       .catch((err) => console.error('Failed to fetch projects:', err));
