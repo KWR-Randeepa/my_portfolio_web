@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { User, ExternalLink } from 'lucide-react';
+import { User, ExternalLink, ChevronDown } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import API_BASE_URL from '../config/api';
@@ -133,7 +133,7 @@ export default function Home() {
             </span>
           </h1>
           <p className="text-lg md:text-2xl text-slate-400 mb-10 max-w-2xl mx-auto font-light tracking-wide">
-            ICT Undergraduate | Network Specialist | Full-Stack Developer
+            ICT Undergraduate | Network Enthusiast | Full-Stack Developer
           </p>
           <a
             href="#projects"
@@ -141,6 +141,17 @@ export default function Home() {
           >
             Access Databanks
           </a>
+
+          <div className="mt-12 flex justify-center">
+            <a
+              href="#about"
+              aria-label="Scroll down to About section"
+              className="flex flex-col items-center gap-1 text-slate-400 hover:text-cyan-400 transition-colors duration-300 animate-bounce group"
+            >
+              <span className="text-[10px] font-mono tracking-widest text-slate-500 group-hover:text-slate-300 uppercase">EXPLORE</span>
+              <ChevronDown className="w-6 h-6 text-slate-400 group-hover:text-cyan-400 transition-colors" />
+            </a>
+          </div>
         </div>
       </section>
 
@@ -182,7 +193,7 @@ export default function Home() {
                 <ExternalLink className="w-3 h-3 text-slate-500" />
               </a>
               <a
-                href="https://linkedin.com/in/ravindu-randeepa"
+                href="https://www.linkedin.com/in/ravindu-randeepa-59563531b/"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-2 px-4 py-2.5 bg-slate-900/80 hover:bg-slate-800 border border-slate-700 hover:border-cyan-400/50 rounded-xl text-xs font-mono text-slate-300 hover:text-white transition-all group"
