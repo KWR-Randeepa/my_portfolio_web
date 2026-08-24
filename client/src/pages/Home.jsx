@@ -37,7 +37,14 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    // 1. Hero fade animation
+    // 1. Navbar shrink effect on scroll
+    ScrollTrigger.create({
+      start: 'top -50',
+      end: 99999,
+      toggleClass: { className: 'bg-opacity-90 py-2', targets: '#navbar' }
+    });
+
+    // 2. Parallax fade for Hero Section
     gsap.to('.hero-content', {
       y: 100,
       opacity: 0,
@@ -49,7 +56,7 @@ export default function Home() {
       }
     });
 
-    // 2. Section reveal animation
+    // 3. Generic Reveal for sections (fade up)
     gsap.utils.toArray('.reveal:not(.skill-card):not(.project-card)').forEach((el) => {
       gsap.to(el, {
         y: 0,
@@ -63,7 +70,7 @@ export default function Home() {
       });
     });
 
-    // 3. Staggered Skill Cards
+    // 4. Staggered reveal for Skill Cards
     gsap.to('.skill-card', {
       y: 0,
       opacity: 1,
@@ -76,7 +83,7 @@ export default function Home() {
       }
     });
 
-    // 4. Staggered Project Cards (run after projects load)
+    // 5. Staggered reveal for Project Cards (run after projects load)
     if (projects.length > 0) {
       gsap.to('.project-card', {
         y: 0,
@@ -101,7 +108,7 @@ export default function Home() {
       <BlackHoleScene />
 
       {/* Floating Navigation */}
-      <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 glass-panel px-8 py-4 rounded-full flex justify-between items-center gap-8 shadow-2xl border border-slate-700/50">
+      <nav id="navbar" className="fixed top-6 left-1/2 -translate-x-1/2 z-50 glass-panel px-8 py-4 rounded-full flex justify-between items-center gap-8 shadow-2xl transition-all duration-300 border border-slate-700/50">
         <div className="text-xl font-bold tracking-widest text-slate-200"></div>
         <div className="space-x-8 text-sm font-semibold hidden md:block">
           <a href="#about" className="text-slate-400 hover:text-white transition-colors">About</a>
