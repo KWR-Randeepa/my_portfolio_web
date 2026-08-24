@@ -28,13 +28,17 @@ import projectRoutes from './routes/projectRoutes.js';
 
 const app = express();
 
-const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(',')
-  : ['http://localhost:5173', 'http://localhost:3000'];
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'https://my-portfolio-web-opal-iota.vercel.app',
+  ...(process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : []),
+  ...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : [])
+];
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (Postman, server-to-server)
+    // Allow requests with no origin (Postman, server-to-server, same-origin on Vercel)
     if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
     callback(new Error(`CORS blocked: ${origin}`));
   },
