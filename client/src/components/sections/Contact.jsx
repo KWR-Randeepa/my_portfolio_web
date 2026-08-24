@@ -15,16 +15,24 @@ export default function Contact() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-      const data = await res.json();
+
+      let data;
+      const contentType = res.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        data = await res.json();
+      } else {
+        const text = await res.text();
+        data = { error: text || `Server error (${res.status})` };
+      }
 
       if (res.ok) {
         setStatus({ loading: false, msg: 'Payload delivered successfully.', isError: false });
         setFormData({ name: '', email: '', message: '' });
       } else {
-        setStatus({ loading: false, msg: data.error || 'Transmission failed.', isError: true });
+        setStatus({ loading: false, msg: data.error || `Failed with status ${res.status}`, isError: true });
       }
-    } catch {
-      setStatus({ loading: false, msg: 'Error establishing connection to backend server.', isError: true });
+    } catch (err) {
+      setStatus({ loading: false, msg: err.message || 'Network or connection error.', isError: true });
     }
   };
 
