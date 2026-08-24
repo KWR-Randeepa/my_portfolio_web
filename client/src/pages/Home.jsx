@@ -179,7 +179,7 @@ export default function Home() {
               I am a 3rd-year ICT undergraduate specializing in the Network Track. I focus on designing minimal, highly functional systems that operate without bloat.
             </p>
             <p className="text-lg leading-relaxed text-slate-400 mb-6">
-              My engineering approach bridges the gap between clean full-stack development, automated cloud architecture, and robust network configurations to deliver seamless, scalable solutions.
+             My engineering approach bridges the gap between resilient network architecture, proactive threat defense, and automated security controls to deliver seamless, battle tested infrastructure.
             </p>
             <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-800/80">
               <a
