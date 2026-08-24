@@ -170,7 +170,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="md:col-span-7 glass-panel p-10 rounded-3xl reveal border border-slate-800">
+          <div className="md:col-span-7 glass-panel p-10 rounded-3xl reveal">
             <h2 className="text-3xl font-bold mb-6 text-white flex items-center gap-4">
               <span className="w-10 h-[2px] bg-slate-400"></span> Identity Profiling
             </h2>
@@ -214,24 +214,6 @@ export default function Home() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="glass-panel p-8 rounded-2xl reveal skill-card border-t-4 border-t-slate-400">
-            <h3 className="text-xl font-bold text-white mb-4">Software</h3>
-            <ul className="text-slate-400 space-y-2 font-mono text-sm">
-              <li>&gt; MERN Stack</li>
-              <li>&gt; React Native</li>
-              <li>&gt; Spring Boot</li>
-              <li>&gt; Flask</li>
-            </ul>
-          </div>
-          <div className="glass-panel p-8 rounded-2xl reveal skill-card border-t-4 border-t-slate-500">
-            <h3 className="text-xl font-bold text-white mb-4">Cloud / DevOps</h3>
-            <ul className="text-slate-400 space-y-2 font-mono text-sm">
-              <li>&gt; AWS (Certified)</li>
-              <li>&gt; Docker</li>
-              <li>&gt; GitHub Actions</li>
-              <li>&gt; CI/CD Pipelines</li>
-            </ul>
-          </div>
-          <div className="glass-panel p-8 rounded-2xl reveal skill-card border-t-4 border-t-slate-600">
             <h3 className="text-xl font-bold text-white mb-4">Networking</h3>
             <ul className="text-slate-400 space-y-2 font-mono text-sm">
               <li>&gt; Cisco Architecture</li>
@@ -240,10 +222,28 @@ export default function Home() {
               <li>&gt; CTF Operations</li>
             </ul>
           </div>
+          <div className="glass-panel p-8 rounded-2xl reveal skill-card border-t-4 border-t-slate-500">
+            <h3 className="text-xl font-bold text-white mb-4">Software</h3>
+            <ul className="text-slate-400 space-y-2 font-mono text-sm">
+              <li>&gt; MERN Stack</li>
+              <li>&gt; Flutter</li>
+              <li>&gt; Python</li>
+              <li>&gt; React Native</li>
+            </ul>
+          </div>
+          <div className="glass-panel p-8 rounded-2xl reveal skill-card border-t-4 border-t-slate-600">
+            <h3 className="text-xl font-bold text-white mb-4">Cloud / DevOps</h3>
+            <ul className="text-slate-400 space-y-2 font-mono text-sm">
+              <li>&gt; AWS</li>
+              <li>&gt; Docker</li>
+              <li>&gt; GitHub Actions</li>
+              <li>&gt; CI/CD Pipelines</li>
+            </ul>
+          </div>
           <div className="glass-panel p-8 rounded-2xl reveal skill-card border-t-4 border-t-slate-700">
             <h3 className="text-xl font-bold text-white mb-4">Data & Visuals</h3>
             <ul className="text-slate-400 space-y-2 font-mono text-sm">
-              <li>&gt; TensorFlow / XGBoost</li>
+              <li>&gt; TensorFlow</li>
               <li>&gt; Pandas / NumPy</li>
               <li>&gt; Three.js</li>
               <li>&gt; WebGL Rendering</li>
@@ -261,7 +261,7 @@ export default function Home() {
           {projects.map((proj) => (
             <div
               key={proj._id}
-              className="glass-panel rounded-2xl overflow-hidden group reveal project-card border border-slate-800 hover:border-slate-500 transition-colors"
+              className="glass-panel rounded-2xl overflow-hidden group reveal project-card hover:border-slate-400 transition-colors"
             >
               <div className="h-1 bg-gradient-to-r from-slate-400 to-slate-700"></div>
               <div className="p-8">

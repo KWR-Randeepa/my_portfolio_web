@@ -23,7 +23,7 @@ export default function Articles() {
           <Link
             to={`/articles/${art.slug}`}
             key={art._id}
-            className="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-slate-500 transition-colors flex flex-col justify-between group"
+            className="glass-panel p-6 rounded-2xl hover:border-slate-400 transition-colors flex flex-col justify-between group"
           >
             <div>
               <div className="flex justify-between items-center text-xs font-mono text-slate-400 mb-3">
