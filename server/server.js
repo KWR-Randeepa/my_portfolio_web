@@ -2,7 +2,15 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import dns from 'node:dns';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load .env from the server directory (works regardless of CWD)
+dotenv.config({ path: path.join(__dirname, '.env') });
 
 // Fix Windows Node.js querySrv ECONNREFUSED issues with MongoDB Atlas (Windows only)
 if (process.platform === 'win32') {
@@ -18,7 +26,6 @@ import articleRoutes from './routes/articleRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import projectRoutes from './routes/projectRoutes.js';
 
-dotenv.config();
 const app = express();
 
 const allowedOrigins = process.env.CORS_ORIGIN
@@ -85,6 +92,15 @@ app.get('/api/health', async (req, res) => {
   } catch (err) {
     res.status(500).json({ status: 'error', error: err.message });
   }
+});
+
+// Global error handler — catches unhandled errors from async routes
+// and returns JSON instead of Express's default HTML error page
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(err.status || 500).json({
+    error: err.message || 'Internal Server Error'
+  });
 });
 
 // Run standalone server if executed directly (not in Vercel serverless)
