@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { User } from 'lucide-react';
+import { User, Github, Linkedin, ExternalLink } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import API_BASE_URL from '../config/api';
@@ -124,12 +124,32 @@ export default function Home() {
           <p className="text-lg md:text-2xl text-slate-400 mb-10 max-w-2xl mx-auto font-light tracking-wide">
             ICT Undergraduate | Network Specialist | Full-Stack Developer
           </p>
-          <a
-            href="#projects"
-            className="inline-block px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/15 text-slate-200 hover:text-white rounded-full font-bold font-mono text-sm tracking-wider shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.25)] transition-all duration-300 hover:scale-105 active:scale-95"
-          >
-            Access Databanks
-          </a>
+          <div className="flex flex-wrap justify-center items-center gap-4">
+            <a
+              href="#projects"
+              className="inline-block px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/15 text-slate-200 hover:text-white rounded-full font-bold font-mono text-sm tracking-wider shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.25)] transition-all duration-300 hover:scale-105 active:scale-95"
+            >
+              Access Databanks
+            </a>
+            <a
+              href="https://github.com/KWR-Randeepa"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-4 glass-panel text-slate-300 hover:text-white rounded-full font-bold font-mono text-sm tracking-wider border border-slate-700 hover:border-slate-400 transition-all duration-300 hover:scale-105"
+            >
+              <Github className="w-4 h-4 text-slate-300" />
+              <span>GitHub</span>
+            </a>
+            <a
+              href="https://github.com/KWR-Randeepa"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-4 glass-panel text-slate-300 hover:text-white rounded-full font-bold font-mono text-sm tracking-wider border border-slate-700 hover:border-cyan-400/50 transition-all duration-300 hover:scale-105"
+            >
+              <Linkedin className="w-4 h-4 text-cyan-400" />
+              <span>LinkedIn</span>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -156,9 +176,31 @@ export default function Home() {
             <p className="text-lg leading-relaxed text-slate-400 mb-6">
               I am a 3rd-year ICT undergraduate specializing in the Network Track. I focus on designing minimal, highly functional systems that operate without bloat.
             </p>
-            <p className="text-lg leading-relaxed text-slate-400">
+            <p className="text-lg leading-relaxed text-slate-400 mb-6">
               My engineering approach bridges the gap between clean full-stack development, automated cloud architecture, and robust network configurations to deliver seamless, scalable solutions.
             </p>
+            <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-800/80">
+              <a
+                href="https://github.com/KWR-Randeepa"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 px-4 py-2.5 bg-slate-900/80 hover:bg-slate-800 border border-slate-700 hover:border-slate-500 rounded-xl text-xs font-mono text-slate-300 hover:text-white transition-all group"
+              >
+                <Github className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
+                <span>GitHub Profile</span>
+                <ExternalLink className="w-3 h-3 text-slate-500" />
+              </a>
+              <a
+                href="https://linkedin.com/in/ravindu-randeepa"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 px-4 py-2.5 bg-slate-900/80 hover:bg-slate-800 border border-slate-700 hover:border-cyan-400/50 rounded-xl text-xs font-mono text-slate-300 hover:text-white transition-all group"
+              >
+                <Linkedin className="w-4 h-4 text-cyan-400" />
+                <span>LinkedIn Profile</span>
+                <ExternalLink className="w-3 h-3 text-slate-500" />
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -261,7 +303,25 @@ export default function Home() {
       <Contact />
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/50 py-8 text-center relative z-10 glass-panel mt-20">
+      <footer className="border-t border-slate-800/50 py-8 text-center relative z-10 glass-panel mt-20 flex flex-col items-center gap-4">
+        <div className="flex justify-center items-center gap-6">
+          <a
+            href="https://github.com/KWR-Randeepa"
+            target="_blank"
+            rel="noreferrer"
+            className="text-slate-400 hover:text-white transition-colors flex items-center gap-2 font-mono text-xs"
+          >
+            <Github className="w-4 h-4" /> GitHub
+          </a>
+          <a
+            href="https://linkedin.com/in/ravindu-randeepa"
+            target="_blank"
+            rel="noreferrer"
+            className="text-slate-400 hover:text-cyan-400 transition-colors flex items-center gap-2 font-mono text-xs"
+          >
+            <Linkedin className="w-4 h-4 text-cyan-400" /> LinkedIn
+          </a>
+        </div>
         <p className="text-slate-500 text-sm font-mono tracking-wide">
           © 2026 Ravindu Randeepa Kariyawasam.<br />Networked. Automated. Secured.
         </p>
