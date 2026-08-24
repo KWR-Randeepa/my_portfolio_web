@@ -38,7 +38,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-32 px-6 max-w-3xl mx-auto relative z-10">
-      <div className="bg-[#141416]/60 backdrop-blur-xl border border-slate-700/50 p-10 rounded-3xl relative overflow-hidden">
+      <div className="glass-panel p-10 rounded-3xl relative overflow-hidden">
         <h2 className="text-3xl font-bold mb-8 text-white text-center">Open Transmission Line</h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-6 relative z-10">
           <div className="grid grid-cols-2 gap-6">

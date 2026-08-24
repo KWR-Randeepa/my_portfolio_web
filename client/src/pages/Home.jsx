@@ -135,32 +135,12 @@ export default function Home() {
           <p className="text-lg md:text-2xl text-slate-400 mb-10 max-w-2xl mx-auto font-light tracking-wide">
             ICT Undergraduate | Network Specialist | Full-Stack Developer
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-4">
-            <a
-              href="#projects"
-              className="inline-block px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/15 text-slate-200 hover:text-white rounded-full font-bold font-mono text-sm tracking-wider shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.25)] transition-all duration-300 hover:scale-105 active:scale-95"
-            >
-              Access Databanks
-            </a>
-            <a
-              href="https://github.com/KWR-Randeepa"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-4 glass-panel text-slate-300 hover:text-white rounded-full font-bold font-mono text-sm tracking-wider border border-slate-700 hover:border-slate-400 transition-all duration-300 hover:scale-105"
-            >
-              <GithubIcon className="w-4 h-4 text-slate-300" />
-              <span>GitHub</span>
-            </a>
-            <a
-              href="https://linkedin.com/in/ravindu-randeepa"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-4 glass-panel text-slate-300 hover:text-white rounded-full font-bold font-mono text-sm tracking-wider border border-slate-700 hover:border-cyan-400/50 transition-all duration-300 hover:scale-105"
-            >
-              <LinkedinIcon className="w-4 h-4 text-cyan-400" />
-              <span>LinkedIn</span>
-            </a>
-          </div>
+          <a
+            href="#projects"
+            className="inline-block px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/15 text-slate-200 hover:text-white rounded-full font-bold font-mono text-sm tracking-wider shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.25)] transition-all duration-300 hover:scale-105 active:scale-95"
+          >
+            Access Databanks
+          </a>
         </div>
       </section>
 
@@ -314,25 +294,7 @@ export default function Home() {
       <Contact />
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/50 py-8 text-center relative z-10 glass-panel mt-20 flex flex-col items-center gap-4">
-        <div className="flex justify-center items-center gap-6">
-          <a
-            href="https://github.com/KWR-Randeepa"
-            target="_blank"
-            rel="noreferrer"
-            className="text-slate-400 hover:text-white transition-colors flex items-center gap-2 font-mono text-xs"
-          >
-            <GithubIcon className="w-4 h-4" /> GitHub
-          </a>
-          <a
-            href="https://linkedin.com/in/ravindu-randeepa"
-            target="_blank"
-            rel="noreferrer"
-            className="text-slate-400 hover:text-cyan-400 transition-colors flex items-center gap-2 font-mono text-xs"
-          >
-            <LinkedinIcon className="w-4 h-4 text-cyan-400" /> LinkedIn
-          </a>
-        </div>
+      <footer className="border-t border-slate-800/50 py-8 text-center relative z-10 glass-panel mt-20">
         <p className="text-slate-500 text-sm font-mono tracking-wide">
           © 2026 Ravindu Randeepa Kariyawasam.<br />Networked. Automated. Secured.
         </p>
