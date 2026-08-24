@@ -2,6 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import dns from 'node:dns';
 
 // Fix Windows Node.js querySrv ECONNREFUSED issues with MongoDB Atlas (Windows only)
@@ -35,13 +37,8 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// MongoDB connection caching for serverless environments
-let isConnected = false;
+// MongoDB connection
 export async function connectDB() {
-  if (isConnected || mongoose.connection.readyState >= 1) {
-    isConnected = true;
-    return true;
-  }
   if (!process.env.MONGO_URI) {
     throw new Error('MONGO_URI environment variable is missing.');
   }
@@ -49,7 +46,6 @@ export async function connectDB() {
     await mongoose.connect(process.env.MONGO_URI, {
       serverSelectionTimeoutMS: 5000 // Fast fail in 5s if IP is blocked or connection fails
     });
-    isConnected = true;
     console.log('MongoDB connected successfully');
     return true;
   } catch (err) {
@@ -57,20 +53,6 @@ export async function connectDB() {
     throw err;
   }
 }
-
-// Middleware to ensure DB is connected on every request
-app.use(async (req, res, next) => {
-  try {
-    await connectDB();
-    next();
-  } catch (err) {
-    res.status(500).json({
-      error: 'Database connection failed',
-      details: err.message,
-      tip: 'Check MONGO_URI in Vercel Environment Variables and verify MongoDB Atlas IP Whitelist (0.0.0.0/0).'
-    });
-  }
-});
 
 app.use('/api/contact', contactRoutes);
 app.use('/api/articles', articleRoutes);
@@ -87,16 +69,22 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
-// Run standalone server if executed directly (not in Vercel serverless)
-if (!process.env.VERCEL) {
-  const PORT = process.env.PORT || 5000;
-  connectDB()
-    .then(() => {
-      app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-    })
-    .catch((err) => {
-      console.error('Failed to start server due to DB error:', err);
-    });
-}
+// Serve frontend in production
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
+
+const PORT = process.env.PORT || 5000;
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  })
+  .catch((err) => {
+    console.error('Failed to start server due to DB error:', err);
+  });
 
 export default app;
