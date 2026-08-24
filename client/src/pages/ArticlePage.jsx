@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import NodeNetworkScene from '../components/3d/NodeNetworkScene';
+import API_BASE_URL from '../config/api';
 
 export default function ArticlePage() {
   const { slug } = useParams();
@@ -9,7 +10,7 @@ export default function ArticlePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/articles/${slug}`)
+    fetch(`${API_BASE_URL}/api/articles/${slug}`)
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         setArticle(data);
