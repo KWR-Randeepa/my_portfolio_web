@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
-    "build": "cd client && npm install && npm run build",
-    "start": "cd server && npm start",
-    "dev:client": "cd client && npm run dev",
-    "dev:server": "cd server && npm run dev"
+    "build": "npm run build --prefix client",
+    "start": "npm start --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "npm run dev --prefix server"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

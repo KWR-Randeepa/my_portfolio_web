@@ -1,7 +1,7 @@
 // Central API base URL config.
-// In production (Vercel), the frontend and API are on the same domain,
-// so we use an empty string to make relative requests (e.g. /api/projects).
-// In development, the Vite proxy handles forwarding /api requests to localhost:5000.
-const API_BASE_URL = import.meta.env.VITE_API_URL || '';
+const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
+// In production (Vercel), set VITE_API_URL to your deployed backend URL.
+// e.g. https://your-backend.vercel.app
+// In development, falls back to local server.
 
 export default API_BASE_URL;
