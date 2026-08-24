@@ -32,6 +32,8 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
   'https://my-portfolio-web-opal-iota.vercel.app',
+  'https://www.ravindurandeepa.dev',
+  'https://ravindurandeepa.dev',
   ...(process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : []),
   ...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : [])
 ];
@@ -39,7 +41,14 @@ const allowedOrigins = [
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (Postman, server-to-server, same-origin on Vercel)
-    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+    if (!origin) return callback(null, true);
+    if (
+      allowedOrigins.includes(origin) ||
+      origin.endsWith('.vercel.app') ||
+      origin.includes('ravindurandeepa')
+    ) {
+      return callback(null, true);
+    }
     callback(new Error(`CORS blocked: ${origin}`));
   },
   credentials: true
