@@ -110,7 +110,7 @@ export default function BlackHoleScene() {
       for (let i = 0; i < particleCount; i++) {
         const r = radii[i];
         const speed = 2 / Math.sqrt(r);
-        angles[i] -= speed * 0.02;
+        angles[i] -= speed * 0.005;
         posArray[i * 3] = Math.cos(angles[i]) * r;
         posArray[i * 3 + 2] = Math.sin(angles[i]) * r;
       }
