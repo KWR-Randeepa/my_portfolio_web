@@ -15,10 +15,12 @@ body {
 }
 
 .glass-panel {
-  background: rgba(20, 20, 22, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(16, 18, 24, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+  transform: translateZ(0);
 }
 
 /* Ensure elements are hidden before GSAP reveals them */

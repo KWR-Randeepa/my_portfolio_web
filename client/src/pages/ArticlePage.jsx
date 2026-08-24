@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import NodeNetworkScene from '../components/3d/NodeNetworkScene';
+import CosmicStarNetworkScene from '../components/3d/CosmicStarNetworkScene';
 import API_BASE_URL from '../config/api';
 
 export default function ArticlePage() {
@@ -21,7 +21,7 @@ export default function ArticlePage() {
   if (loading) {
     return (
       <div className="relative min-h-screen flex items-center justify-center font-mono text-slate-400">
-        <NodeNetworkScene />
+        <CosmicStarNetworkScene />
         <span className="relative z-10 bg-black/60 px-6 py-3 rounded-full border border-slate-800 backdrop-blur-md">
           LOADING TRANSMISSION DATA...
         </span>
@@ -32,7 +32,7 @@ export default function ArticlePage() {
   if (!article) {
     return (
       <div className="relative min-h-screen flex items-center justify-center font-mono text-slate-400">
-        <NodeNetworkScene />
+        <CosmicStarNetworkScene />
         <span className="relative z-10 bg-black/60 px-6 py-3 rounded-full border border-slate-800 backdrop-blur-md">
           404 // ARTICLE NOT FOUND
         </span>
@@ -42,7 +42,7 @@ export default function ArticlePage() {
 
   return (
     <div className="relative min-h-screen text-slate-200 py-20 px-6 overflow-hidden">
-      <NodeNetworkScene />
+      <CosmicStarNetworkScene />
       <article className="max-w-3xl mx-auto glass-panel p-8 md:p-12 rounded-3xl border border-slate-800 shadow-2xl relative z-10">
         <Link to="/#articles" className="inline-block text-xs font-mono text-slate-400 hover:text-white mb-6 transition-colors">
           ← BACK TO MAIN LOGS

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import API_BASE_URL from '../config/api';
+import NodeNetworkScene from '../components/3d/NodeNetworkScene';
 
 export default function AdminLogin() {
   const [username, setUsername] = useState('');
@@ -36,8 +37,9 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] flex items-center justify-center px-4">
-      <div className="glass-panel p-8 md:p-10 rounded-3xl border border-slate-800 w-full max-w-md">
+    <div className="min-h-screen bg-[#050505] flex items-center justify-center px-4 relative overflow-hidden">
+      <NodeNetworkScene />
+      <div className="glass-panel p-8 md:p-10 rounded-3xl border border-slate-800 w-full max-w-md relative z-10">
         <h2 className="text-2xl font-bold font-mono text-white mb-2 tracking-widest text-center">
           SYSTEM ACCESS
         </h2>

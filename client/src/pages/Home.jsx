@@ -23,6 +23,12 @@ const LinkedinIcon = ({ className = "w-4 h-4" }) => (
   </svg>
 );
 
+const BehanceIcon = ({ className = "w-4 h-4" }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M22 7h-7v-2h7v2zm1.726 10c-.442 1.297-1.646 3-4.476 3-2.871 0-4.949-1.921-4.949-5.188 0-3.1 2.001-5.187 4.79-5.187 2.87 0 4.542 1.942 4.542 4.966 0 .399-.043.834-.067 1.055h-6.721c.148 1.488 1.135 2.155 2.379 2.155 1.082 0 1.836-.457 2.128-1.201h2.373zm-4.667-5.166c-.99 0-1.677.625-1.896 1.636h3.693c-.104-.985-.758-1.636-1.797-1.636zm-10.748-4.834h-8.311v12h8.375c3.218 0 5.158-1.572 5.158-4.102 0-1.884-1.077-3.003-2.585-3.486 1.229-.533 2.062-1.64 2.062-3.14 0-2.316-1.849-3.272-4.699-3.272zm-5.311 2.176h2.529c1.375 0 2.274.496 2.274 1.543 0 1.136-.93 1.642-2.35 1.642h-2.453v-3.185zm0 5.093h2.802c1.472 0 2.454.593 2.454 1.776 0 1.218-1.002 1.775-2.559 1.775h-2.697v-3.551z"/>
+  </svg>
+);
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
@@ -109,7 +115,7 @@ export default function Home() {
 
       {/* Floating Navigation */}
       <nav id="navbar" className="fixed top-6 left-1/2 -translate-x-1/2 z-50 glass-panel px-8 py-4 rounded-full flex justify-between items-center gap-8 shadow-2xl transition-all duration-300 border border-slate-700/50">
-        <div className="text-xl font-bold tracking-widest text-slate-200"></div>
+        <div className="text-xl font-bold tracking-widest text-slate-200 font-mono"></div>
         <div className="space-x-8 text-sm font-semibold hidden md:block">
           <a href="#about" className="text-slate-400 hover:text-white transition-colors">About</a>
           <a href="#skills" className="text-slate-400 hover:text-white transition-colors">Arsenal</a>
@@ -199,6 +205,7 @@ export default function Home() {
                 <span>GitHub Profile</span>
                 <ExternalLink className="w-3 h-3 text-slate-500" />
               </a>
+             
               <a
                 href="https://www.linkedin.com/in/ravindu-randeepa-59563531b/"
                 target="_blank"
@@ -207,6 +214,16 @@ export default function Home() {
               >
                 <LinkedinIcon className="w-4 h-4 text-cyan-400" />
                 <span>LinkedIn Profile</span>
+                <ExternalLink className="w-3 h-3 text-slate-500" />
+              </a>
+               <a
+                href="https://www.behance.net/ravindurandeepa1"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 px-4 py-2.5 bg-slate-900/80 hover:bg-slate-800 border border-slate-700 hover:border-blue-400/50 rounded-xl text-xs font-mono text-slate-300 hover:text-white transition-all group"
+              >
+                <BehanceIcon className="w-4 h-4 text-blue-400" />
+                <span>Behance Profile</span>
                 <ExternalLink className="w-3 h-3 text-slate-500" />
               </a>
             </div>

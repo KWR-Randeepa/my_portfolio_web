@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useAuth } from '../context/AuthContext';
 import API_BASE_URL from '../config/api';
+import NodeNetworkScene from '../components/3d/NodeNetworkScene';
 
 export default function AdminDashboard() {
   const { token, logout } = useAuth();
@@ -210,8 +211,9 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-slate-200 p-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-[#050505] text-slate-200 p-8 relative overflow-hidden">
+      <NodeNetworkScene />
+      <div className="max-w-6xl mx-auto relative z-10">
         <div className="flex justify-between items-center mb-8 border-b border-slate-800 pb-4">
           <h1 className="text-2xl font-bold font-mono tracking-wider">COMMAND CENTER</h1>
           <button onClick={logout} className="px-4 py-2 bg-red-900/40 text-red-300 border border-red-800 rounded font-mono text-sm hover:bg-red-900/70 transition-colors">
