@@ -12,6 +12,7 @@
   "dependencies": {
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.3",
+    "@vercel/analytics": "^2.0.1",
     "@vitejs/plugin-react": "^6.0.4",
     "autoprefixer": "^10.5.4",
     "axios": "^1.19.0",
